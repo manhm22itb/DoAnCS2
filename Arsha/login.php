@@ -1,31 +1,47 @@
 <?php
+  session_start();
   include "connect.php";
-  $err = '';
-  if(isset($_POST['login']))
+  $nameErr = $passErr ='';
+  if(isset($_POST['signin']))
   {
-
-    $name = trim($_POST['txtUsername']);
-    $name = trim($_POST['txtPassword']);
-    if(empty($username) || empty($password))
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $pass = trim($_POST['password']);
+    $sql= "SELECT * FROM `user` WHERE `email`='$email'";
+    $kq= mysqli_query($conn,$sql);
+    $row= mysqli_fetch_assoc($kq);
+    $check_email = mysqli_num_rows($kq);
+    if($check_email==1)
     {
-      $err = "Không được để trống!";
-    }
-    if(!empty($username) && !empty($password))
-    {
+      if(md5($pass)== $row['pass'] && $row['role']=='user')
+      {
+        $_SESSION['user']=$row;
+        
+        header('location:index.php');
+      }
+      else if($pass == $row['pass'] && $row['role']=='admin')
+      {
+        $_SESSION['admin']=$row;
+        
+        header('location:./Admin/index_admin.php');
+      }
       
+      else{
+        echo "Tài khoản không tồn tại!";
+      }
+    }
+    else
+    {
+      echo "Tài khoản không tồn tại!";
     }
   }
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
   <title>LOGIN</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -57,8 +73,15 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <!-- Font Icon -->
+
+  <link rel="stylesheet" href="./assets/css/login_signup/fonts/material-icon/css/material-design-iconic-font.min.css">
+  <!-- Main css -->
+
+  <link rel="stylesheet" href="./assets/css/login_signup/css/style.css">
 </head>
-<style>
+<!-- <style>
 body{
   background-color: #f3f5fa;
   padding: 10px;
@@ -90,69 +113,51 @@ body{
   padding: 0 20px 20px 20px;
 }
 
-</style>
+</style> -->
 
 <body>
 
   <main>
-    <form action="login.php" method="post">
-    <div class="container">
-
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-              <div class="card mb-3">
-
-                <div class="card-body">
-
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4"><b>Đăng nhập tài khoản của bạn</b></h5>
-                    <!-- <p class="text-center small">Enter your username & password to login</p> -->
-                  </div>
-
-                  <form class="row g-3 needs-validation" novalidate >
-
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Tên đăng nhập</label>
-                      <div class="input-group has-validation">
-                        <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-                        <input type="text" name="txtUsername" class="form-control" id="yourUsername"  placeholder="Tên đăng nhập" required>
-                        <!-- <div class="invalid-feedback">Please enter your username.</div> -->
-                      </div>
+  <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="./assets/img/login.png" alt="image"></figure>
+                        <a href="register.php" class="signup-image-link">Bạn chưa có tài khoản?</a>
                     </div>
 
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Mật khẩu</label>
-                      <input type="password" name="txtPassword" class="form-control" id="yourPassword"  placeholder="Mật khẩu" required>
-                      <!-- <div class="invalid-feedback">Please enter your password!</div> -->
+                    <div class="signin-form">
+                        <h2 class="form-title">Đăng nhập</h2>
+                        <form action="login.php" method="POST" class="register-form" id="login-form">
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Địa chỉ email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="yourUsername"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="username" id="yourUsername" placeholder="Tài khoản"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="yourPassword"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="yourPassword" placeholder="Mật khẩu"/>
+                            </div>
+                            
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="ĐĂNG NHẬP"/>
+                            </div>
+                        </form>
+                        <div class="social-login">
+                            <span class="social-label">Hoặc đăng nhập với</span>
+                            <ul class="socials">
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                            </ul>
+                        </div>
                     </div>
-
-                    <div class="col-12">
-                      <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div> -->
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit" name="login">Đăng nhập</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Bạn chưa có tài khoản? <a href="register.php">Tạo tài khoản.</a></p>
-                    </div>
-                  </form>
-
                 </div>
-              </div>
-
             </div>
-          </div>
-        </div>
-
-      </section>
-
-    </div>
-    </form>
+        </section>
   </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

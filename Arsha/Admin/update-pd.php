@@ -1,163 +1,32 @@
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Update infomation</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: NiceAdmin
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
-</head>
-<style>
-    
-.ip{
-  border: none;
-  outline: none;
-  border-bottom: 1px solid #899dbe;
-  width: 150%;
-  margin: 10px;
-}
-</style>
-<body>
-
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Admin</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-          <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">    
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Menu</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="add-inf.html">
-          <i class="bi bi-menu-button-wide"></i><span>Add infomation</span>
-        </a>
-      </li><!-- End Components Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="update-inf.html">
-          <i class="bi bi-journal-text"></i><span>Update infomation</span>
-        </a>
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="data.html">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Data</span>
-        </a>
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Charts</span>
-        </a>
-      </li><!-- End Charts Nav -->
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-    </ul>
-
-  </aside><!-- End Sidebar-->
+<?php
+  // session_start();
+  include "../connect.php";
+  include "nav_admin.php";
+  include "side_bar.php";
+  // unset($_SESSION['user']);
+  $user = !empty($_SESSION['user']) ? $_SESSION['user'] :'';
+  $idsp = $_GET['idsp'];
+  $request_sp = mysqli_query($conn, "SELECT * FROM `sanpham` WHERE `ID`=". $idsp);
+  $row= mysqli_fetch_assoc($request_sp);
+  if(isset($_POST['update_sp']))
+  {
+    $idsp = $_GET['idsp'];
+    $ten_sp = $_POST['name'];
+    $SL = $_POST['SL'];
+    $Gia= $_POST['gia'];
+    $IDDM= $_POST['iddm'];
+    $mota = $_POST['content'];
+    // Lấy tên ảnh
+    $img = $_FILES['img']['name'];
+    // lấy đường dẫn ảnh
+    $image_tmp_name = $_FILES['img']['tmp_name'];
+    move_uploaded_file($image_tmp_name,'../IMG/SP/'.$img);
+    $update_sp = mysqli_query($conn, "UPDATE `sanpham` SET
+    `Ten_SP`='$ten_sp',`SL`=' $SL',`Gia`='$Gia',`ID_Danh_Muc`=' $IDDM',`Hinh_Anh`='$img ',`Mo_Ta`='$mota' WHERE `ID`=".$idsp);
+    header("location: ds_danhmuc.php");
+  }
+?>
+<title>Cập nhật sản phẩm</title>
 
   <main id="main" class="main">
 
@@ -172,62 +41,92 @@
       </nav>
     </div><!-- End Page Title -->
 
-    <section class="section">
-        <div class="container">
-        <div class="row">
-        <div class="col-lg-8">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Information</h5>
+    <form action="" method="POST" enctype="multipart/form-data">
+      <section class="section">
+          <div class="container">
+          <div class="row">
+          <form action="add-pd.php" method="POST" enctype="multipart/form-data">
+          <div class="col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Information</h5>
 
-              <!-- Quill Editor Bubble -->
-              <table>
-                <tr >
-                    <td class="card-title">Tên thuốc:</td>
-                    <td>
-                        <input  class="ip" type="text" name="name">
-                    </td>
-                </tr>
-                <tr >
-                    <td class="card-title">Giá:</td>
-                    <td>
-                        <input  class="ip" type="text" name="gia">
-                    </td>
-                </tr>
-                <tr >
-                    <td class="card-title">Số lượng:</td>
-                    <td>
-                        <input class="ip" type="text" name="SL">
-                    </td>
-                </tr>
-                <tr >
-                    <td class="card-title">Hình ảnh:</td>
-                    <td>
-                        <input type="file" name="img">
-                    </td>
-                </tr>
-            </table>
-              <!-- End Quill Editor Bubble -->
+                <!-- Quill Editor Bubble -->
+                <table>
+                  <tr >
+                      <td class="card-title">Tên thuốc:</td>
+                      <td>
+                          <input  class="ip" type="text" name="name" value="<?= $row['Ten_SP'] ?>">
+                      </td>
+                  </tr>
+                  <tr >
+                      <td class="card-title">Giá:</td>
+                      <td>
+                          <input  class="ip" type="text" name="gia" value="<?= $row['Gia'] ?>">
+                      </td>
+                  </tr>
+                  <tr >
+                      <td class="card-title">Số lượng:</td>
+                      <td>
+                          <input class="ip" type="text" name="SL" value="<?= $row['SL'] ?>">
+                      </td>
+                  </tr>
+                  <tr >
+                      <td class="card-title">ID danh mục:</td>
+                      <td>
+                          <select name="iddm">
+                            <?php 
+                              $sql_iddm = "SELECT * FROM `danhmuc`";
+                              $kq_iddm= mysqli_query($conn,$sql_iddm);
+                              while($data = mysqli_fetch_array($kq_iddm))
+                              {
+                                echo 
+                                '<option value="'.$data['ID'].'">'
+                                  .$data['ten_dm'].
+                                '</option>';
+                              }
+                              
+                              ;
+                            ?>
+                          </select>
+                      </td>
+                  </tr>
+                  <tr >
+                      <td class="card-title">Hình ảnh:</td>
+                      <td>
+                          <span>
+                            <img src="../IMG/SP/<?= $row['Hinh_Anh'] ?>" alt=""  width="100px" height="100px">
+                          </span>
+                          <input type="file" name="img">
+                      </td>
+                  </tr>
+              </table>
+                <!-- End Quill Editor Bubble -->
 
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Mô tả</h5>
-
-              <div class="quill-editor-full">
-               
               </div>
-              <!-- End Quill Editor Full -->
-
             </div>
-          </div>
 
+            <div class="card">
+              <div class="card-body">
+              <h5 class="card-title">Mô tả</h5>
+                  <div>
+                      <textarea name="content">
+                        <?= $row['Mo_Ta'] ?>
+                      </textarea>
+                      <script>
+                              CKEDITOR.replace( 'content' );
+                      </script>
+                  </div>
+                  <input class="btn" type="submit" name="update_sp" value="Update">   
+              </div>                    
+            </div>
+
+          </div>
+          </form>
         </div>
-      </div>
-        </div>
-    </section>
+          </div>
+      </section>
+    </form>
 
   </main><!-- End #main -->
 

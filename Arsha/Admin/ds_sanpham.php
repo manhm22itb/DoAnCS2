@@ -1,3 +1,48 @@
+<?php
+ session_start();
+ include "../connect.php";
+ include "nav_admin.php";
+ include "side_bar.php";
+ // unset($_SESSION['user']);
+ $user = !empty($_SESSION['admin']) ? $_SESSION['admin'] :'';
+//  echo $_SESSION['admin'];
+  // exit();
+// 
+?>
+<?php
+  $num=0;
+  if(isset($_SESSION['admin']))
+  {
+    $sql="SELECT * FROM sanpham WHERE ID_Danh_Muc=".$_GET['iddm'];
+    // echo $sql;
+    // exit();
+    // echo $_GET['iddm']; exit();
+    
+    $request = mysqli_query($conn, $sql);
+    // exit();
+    $num_sp= mysqli_num_rows($request);
+    $limit = 3;
+    $total_page = ceil($num_sp/$limit);
+    
+    $page_ht = isset($_GET['page']) ? $_GET['page']:1 ;
+
+    if($page_ht > $total_page)
+    {
+      $page_ht = $total_page;
+    }
+    else if($page_ht < 1)
+    {
+      $page_ht = 1;
+    }
+    $start = (($page_ht-1)* $limit);
+    // echo "SELECT * FROM sanpham WHERE ID_Danh_Muc=" .$_GET['iddm']. " LIMIT $start,$limit";
+    // exit();
+    $kq= mysqli_query($conn,"SELECT * FROM sanpham WHERE ID_Danh_Muc=".$_GET['iddm']." LIMIT $start,$limit" );
+    // $kq= mysqli_query($conn, "SELECT * FROM sanpham WHERE ID_Danh_Muc" );
+    
+  }
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +59,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -36,6 +82,21 @@
   ======================================================== -->
 </head>
 <style>
+
+#Paging{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#Paging a{
+    text-decoration: none;
+    border: 1px solid #2d3f6a;
+    padding: 5px 10px;
+    color: #132040;
+    border-radius: 8px;
+    margin: 0 5px;
+}
     
 .ip{
   border: none;
@@ -47,117 +108,6 @@
 </style>
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
-
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Admin</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
-
-    <div class="search-bar">
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
-
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
-
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
-          <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-          </a><!-- End Profile Iamge Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">    
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
-
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
-
-      </ul>
-    </nav><!-- End Icons Navigation -->
-
-  </header><!-- End Header -->
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Menu</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="add-inf.html">
-          <i class="bi bi-menu-button-wide"></i><span>Add infomation</span>
-        </a>
-      </li><!-- End Components Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="update-inf.html">
-          <i class="bi bi-journal-text"></i><span>Update infomation</span>
-        </a>
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="data.html">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Data</span>
-        </a>
-      </li><!-- End Tables Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Charts</span>
-        </a>
-      </li><!-- End Charts Nav -->
-
-      <li class="nav-heading">Pages</li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-error-404.html">
-          <i class="bi bi-dash-circle"></i>
-          <span>Error 404</span>
-        </a>
-      </li><!-- End Error 404 Page Nav -->
-    </ul>
-
-  </aside><!-- End Sidebar-->
 
   <main id="main" class="main">
 
@@ -182,32 +132,74 @@
                     <thead>
                       <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Tên danh mục</th>
+                        <th scope="col">Tên sản phẩm</th>
                         <th scope="col">Số lượng</th>
+                        <th scope="col">Giá</th>
                         <th scope="col">Hình ảnh</th>
-                        <th scope="col">Mô tả</th>
+                        <th scope="col">Xóa</th>
+                        <th scope="col">Sửa</th>
+                        <th scope="col">Mô tả sản phẩm</th>
+                        
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                      </tr>
+            <?php
+                // include("../connect.php");
+                 // 2. Truy vấn
+                
+                // 3. Hiển thị
+                while ($row = mysqli_fetch_array($kq))
+                { $start++
+            ?>
+                <tr class="success">
+                    <td>
+                    <?php
+                        echo $row["ID"];
+                        ?>
+                    </td>
+                    <td>
+                        <a href="../../view/details.php?idsp_details=<?php echo $row["ID"]; ?>">
+                          <?php
+                          echo $row["Ten_SP"]; 
+                          ?>
+                        </a>
+                        
+                    </td>
+                    <td>
+                        <?php
+                        echo $row["SL"]; 
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                        echo $row["Gia"]; 
+                        ?>
+                    </td>
+                    <td>
+                        <img src="../IMG/SP/<?php 
+                        echo $row['Hinh_Anh']?>" 
+                        width="40px" height="60px" alt="">
+                     </td>
+                    <td>
+                        <a href="delete-pd.php?idsp1=
+                        <?php echo$row['ID']?>
+                        ">Xóa</a>
+                    </td>
+                    <td>
+                        <a href="update-pd.php?idsp=
+                        <?php echo$row['ID']?>
+                        ">Sửa</a>
+                    </td>
+                    <td>
+                        <?php echo $row['Mo_Ta']; ?>
+                    </td>
+                    
+                    
+
+                </tr>          
+            <?php }?>
                     </tbody>
-                  </table>
+                </table>
               
               <!-- End Table with stripped rows -->
 
@@ -215,6 +207,40 @@
           </div>
 
         </div>
+      </div>
+      <div id="Paging" class="page">
+        <?php
+          if(isset($_SESSION['admin']))
+          {
+            if($page_ht > 2 && $total_page >1)
+            {
+              $pre_page = $page_ht -1;
+              echo '<a href="ds_sanpham.php?page='.$pre_page.'&iddm='.$_GET['iddm'].'"><i class="fa-solid fa-angle-left"></i></a>';
+            }
+            
+            if(!empty($total_page)){
+                
+              for ($i=1; $i <= $total_page; $i++) { 
+                if($i != $page_ht){
+                  if($i > $page_ht -2 && $i < $page_ht + 2){
+                    echo "<a href='ds_sanpham.php?page=$i&iddm=".$_GET['iddm']."'>$i</a>";
+                    // exit();
+                    // echo "<a href='ds_sanpham.php?iddm='></a>"; 
+                       
+                  }
+                }else{
+                  echo "<a href='ds_sanpham.php?page=$i&iddm=".$_GET['iddm']."'>$i</a>";
+                }
+              }
+            }
+
+            if($page_ht < $total_page - 1 && $total_page > 1){
+              $next_page = $page_ht + 1;
+              echo '<a href="ds_sanpham.php?page='.$next_page.'&iddm='.$_GET['iddm'].'"><i class="fa-solid fa-angle-right"></i></a>';
+            }
+          }
+
+        ?>
       </div>
     </section>
 

@@ -1,4 +1,28 @@
+<?php
+  session_start();
+  include "../connect.php";
+  // unset($_SESSION['user']);
+  $user = !empty($_SESSION['user']) ? $_SESSION['user'] :'';
+  // print_r($user);
+  // exit();
+  if(isset($_POST['them_sp']))
+  {
+      $ten_sp = $_POST['name'];
+      $SL = $_POST['SL'];
+      $Gia= $_POST['gia'];
+      $IDDM= $_POST['iddm'];
+      $mota = $_POST['content1'];
+      // Lấy tên ảnh
+      $img = $_FILES['img']['name'];
+      // lấy đường dẫn ảnh
+      $image_tmp_name = $_FILES['img']['tmp_name'];
+      move_uploaded_file($image_tmp_name,'../IMG/SP/'.$img);
 
+      $sql_sp = "INSERT INTO `sanpham` (`ID`, `Ten_SP`, `SL`, `Gia`, `ID_Danh_Muc`, `Hinh_Anh`, `Mo_Ta`) 
+      VALUES (NULL,'$ten_sp','$SL', '$Gia','$IDDM','$img','$mota')";
+      $kq_sp = mysqli_query($conn,$sql_sp);
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +38,7 @@
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+  <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -43,6 +67,18 @@
   border-bottom: 1px solid #899dbe;
   width: 150%;
   margin: 10px;
+}
+
+.btn{
+  font-size: 18px;
+  width: 70px;
+  color: #012970;
+  font-weight: 500;
+  font-family: "Poppins", sans-serif;
+  margin-top: 20px;
+}
+.btn:hover{
+    color:#798eb3 ;
 }
 </style>
 <body>
@@ -76,8 +112,9 @@
           <li class="nav-item dropdown pe-3">
 
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            <span class="d-none d-md-block dropdown-toggle ps-2">
+              <? echo$user['email'] ?>
+            </span>
           </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -91,7 +128,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
+              <a class="dropdown-item d-flex align-items-center" href="../logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>
@@ -175,6 +212,7 @@
     <section class="section">
         <div class="container">
         <div class="row">
+        <form action="add-pd.php" method="POST" enctype="multipart/form-data">
         <div class="col-lg-8">
           <div class="card">
             <div class="card-body">
@@ -201,6 +239,26 @@
                     </td>
                 </tr>
                 <tr >
+                    <td class="card-title">ID danh mục:</td>
+                    <td>
+                        <select name="iddm">
+                          <?php 
+                            $sql_iddm = "SELECT * FROM `danhmuc`";
+                            $kq_iddm= mysqli_query($conn,$sql_iddm);
+                            while($data = mysqli_fetch_array($kq_iddm))
+                            {
+                              echo 
+                              '<option value="'.$data['ID'].'">'
+                                .$data['ten_dm'].
+                              '</option>';
+                            }
+                            
+                            ;
+                          ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr >
                     <td class="card-title">Hình ảnh:</td>
                     <td>
                         <input type="file" name="img">
@@ -214,17 +272,19 @@
 
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Mô tả</h5>
-
-              <div class="quill-editor-full">
-               
-              </div>
-              <!-- End Quill Editor Full -->
-
-            </div>
+            <h5 class="card-title">Mô tả</h5>
+                <div>
+                    <textarea name="content1"></textarea>
+                    <script>
+                            CKEDITOR.replace( 'content1' );
+                    </script>
+                </div>
+                <input class="btn" type="submit" name="them_sp" value="Add">   
+            </div>                    
           </div>
 
         </div>
+        </form>
       </div>
         </div>
     </section>
