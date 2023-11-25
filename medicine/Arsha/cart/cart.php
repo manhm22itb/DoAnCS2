@@ -207,7 +207,7 @@
                         </tr>
                         <tr>
                             <td colspan="6"><b>Tổng tiền:</b>
-                                <?= number_format($total, 0, ",", ".") ?>.000 vnd
+                                <?= number_format($total, 0, ",", ".") ?>vnd
                             </td>
                         </tr>
                     </table>
@@ -224,7 +224,7 @@
                 </div>
                 <div class="tongtien cart d-flex justify-content-between">
                     <p>Tổng tiền</p>
-                    <p><?= number_format($total, 0, ",", ".") ?>.000 vnd</p>
+                    <p><?= number_format($total, 0, ",", ".") ?>vnd</p>
                 </div>
                 <div class="buy_now d-flex justify-content-center">
                     <input class="btn" name="buy" type="submit" value="Mua ngay">

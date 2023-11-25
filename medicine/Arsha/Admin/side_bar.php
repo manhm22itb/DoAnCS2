@@ -19,6 +19,7 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
   <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
   <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -91,6 +92,11 @@
         <li class="nav-item">
             <a class="nav-link collapsed"  href="ds_danhmuc.php">
                 <i class="bi bi-layout-text-window-reverse"></i><span>Dữ liệu</span>
+            </a>
+        </li><!-- End Tables Nav -->
+        <li class="nav-item">
+            <a class="nav-link collapsed"  href="don_hang.php">
+                <i class="fa-solid fa-people-carry-box"></i><span>Đơn hàng</span>
             </a>
         </li><!-- End Tables Nav -->
 
